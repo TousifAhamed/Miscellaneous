@@ -1,3 +1,4 @@
+import os
 # Create flask app
 from flask import Flask, g
 app = Flask(__name__)
@@ -21,4 +22,4 @@ def index():
     return "Hello"
 
 # Running application
-app.run(debug=True)
+app.run(debug=os.environ.get("FLASK_DEBUG") == "1")

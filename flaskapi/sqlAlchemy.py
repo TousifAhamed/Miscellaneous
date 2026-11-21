@@ -1,3 +1,5 @@
+import os
+import secrets
 from flask import Flask, render_template, url_for, redirect, request, session, flash
 from datetime import timedelta
 from flask_sqlalchemy import SQLAlchemy
@@ -6,7 +8,8 @@ from flask_bootstrap import Bootstrap
 
 app = Flask(__name__)
 Bootstrap(app)
-app.secret_key = "hello"
+# Read from the environment; a random key is used if unset (sessions reset on restart).
+app.secret_key = os.environ.get("FLASK_SECRET_KEY") or secrets.token_hex(32)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.sqlite3'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.permanent_session_lifetime = timedelta(minutes=5)
@@ -90,4 +93,4 @@ def logout():
 
 if __name__ == "__main__":
     db.create_all()
-    app.run(debug=True)
+    app.run(debug=os.environ.get("FLASK_DEBUG") == "1")
