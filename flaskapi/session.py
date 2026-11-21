@@ -1,8 +1,11 @@
+import os
+import secrets
 from flask import Flask, render_template, url_for, redirect, request, session
 from datetime import timedelta
 
 app = Flask(__name__)
-app.secret_key = "hello"
+# Read from the environment; a random key is used if unset (sessions reset on restart).
+app.secret_key = os.environ.get("FLASK_SECRET_KEY") or secrets.token_hex(32)
 app.permanent_session_lifetime = timedelta(minutes=5)
 
 @app.route('/')
@@ -36,4 +39,4 @@ def logout():
     return redirect(url_for("login"))
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=os.environ.get("FLASK_DEBUG") == "1")

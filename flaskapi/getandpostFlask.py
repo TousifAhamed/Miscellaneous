@@ -1,3 +1,4 @@
+import os
 from flask import Flask, render_template, url_for, redirect, request
 
 app = Flask(__name__)
@@ -20,5 +21,5 @@ def user(usr):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=os.environ.get("FLASK_DEBUG") == "1")
 
