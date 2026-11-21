@@ -1,0 +1,5 @@
+# Local databases and Python cache: never commit
+*.sqlite3
+*.db
+__pycache__/
+.env
