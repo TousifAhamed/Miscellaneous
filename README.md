@@ -12,7 +12,7 @@ Small Flask and JavaScript practice scripts, in `flaskapi/`.
 
 ## Setup
 ```bash
-pip install flask flask-sqlalchemy flask-bootstrap
+pip install flask flask-sqlalchemy flask-bootstrap flask-httpauth flask-restful flask-track-usage requests
 cd flaskapi
 python session.py        # or any other script
 ```
